@@ -13,7 +13,10 @@
     "url": "git+https://github.com/nomads42/react-native-lightbox"
   },
   "keywords": [
-    "api"
+    "react",
+    "react-native",
+    "lightbox",
+    "swiper"
   ],
   "author": "Guillaume Munsch @Nomads42",
   "bugs": {
