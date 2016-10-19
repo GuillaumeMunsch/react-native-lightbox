@@ -1,6 +1,6 @@
 {
   "name": "@nomads42/react-native-lightbox",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React native LightBox",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,10 @@
     "url": "git+https://github.com/nomads42/react-native-lightbox"
   },
   "keywords": [
-    "api"
+    "react",
+    "react-native",
+    "lightbox",
+    "swiper"
   ],
   "author": "Guillaume Munsch @Nomads42",
   "bugs": {
