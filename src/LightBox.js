@@ -96,6 +96,7 @@ class LightBox extends Component {
       selectedChildIndex: 0,
       selectedChild: null,
     };
+    this.onMomentumScrollEnd = this.onMomentumScrollEnd.bind(this);
   }
 
   componentWillMount() {
@@ -114,6 +115,11 @@ class LightBox extends Component {
 
   onModalClose() { // eslint-disable-line
     return true;
+  }
+
+
+  onMomentumScrollEnd(e, state) {
+    this.setState({ selectedChildIndex: state.index });
   }
 
   getPaginationStyleProps() {
@@ -199,6 +205,7 @@ class LightBox extends Component {
                 height={this.state.swiperHeight}
                 width={this.state.swiperWidth}
                 index={this.state.selectedChildIndex}
+                onMomentumScrollEnd={this.onMomentumScrollEnd}
                 {...this.getPaginationStyleProps()}
               >
                 {
@@ -208,7 +215,7 @@ class LightBox extends Component {
             </View>
             <View style={{ alignItems: 'center' }}>
               <View style={{ flex: 1, alignSelf: 'stretch' }}>
-                {this.props.renderFooter && this.props.renderFooter()}
+                {this.props.renderFooter && this.props.renderFooter(this.state.selectedChildIndex)}
               </View>
             </View>
           </View>

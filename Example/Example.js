@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import LightBox from 'react-native-lightbox';
+import LightBox from './dist';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 const full = require('./vinyl.jpg');
 
 class Example extends React.Component {
-  renderFooter() { // eslint-disable-line
+  renderFooter(index) { // eslint-disable-line
     return (
       <View style={{ margin: 10, height: 50, flexDirection: 'row', alignItems: 'center' }}>
         <TouchableOpacity style={[styles.lightBoxFooterButton, { flex: 1 }]}>
@@ -50,7 +50,7 @@ class Example extends React.Component {
         </TouchableOpacity>
         <View style={{ flex: 1, height: 50 }} />
         <TouchableOpacity style={[styles.lightBoxFooterButton, { flex: 1 }]}>
-          <Text style={styles.lightBoxFooterButtonText}>Button 2</Text>
+          <Text style={styles.lightBoxFooterButtonText}>Like n° {index}</Text>
         </TouchableOpacity>
       </View>
     );
