@@ -1,0 +1,6 @@
+.git
+.gitignore
+npm-debug.log
+update.sh
+Example/
+.*rc
