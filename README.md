@@ -38,7 +38,6 @@ If you want a specific `<Image ... />` to be selected for your `LightBox`, simpl
 
 ### Todos
 
- - Index of selected element in props of renderFooter
  - Zoomable images
  - Animations
 
