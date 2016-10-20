@@ -27,10 +27,10 @@ $ npm i -S @nomads42/react-native-lightbox
 
 ### LightBox Props
 
-| Props           | Default | Type     | Description                                                                              |
-|-----------------|---------|----------|------------------------------------------------------------------------------------------|
-| `paginationStyle` | `null`    | `string`   | Allows you to choose the pagination style. 3 possible values: `null`, `dots` and `pages` |
-| `renderFooter`    | `null`    | `function` | Display the return value of this function at the bottom of the lightbox                  |
+| Props           | Default | Type     | Description                                                                                                                                     |
+|-----------------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| paginationStyle | null    | string   | Allows you to choose the pagination style. 3 possible values: `null`, `dots` and `pages`                                                        |
+| renderFooter    | null    | function | Display the return value of this function at the bottom of the lightbox. `renderFooter` gets the index of the current `<Image />` in parameters |
 
 ### Content Props
 
