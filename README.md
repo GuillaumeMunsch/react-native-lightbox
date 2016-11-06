@@ -2,11 +2,15 @@
 
 React Native Lightbox is an npm package that allows you using a lightbox in a React Native project.
 
-### Tech
+### Getting Started
 
-React Native Lightbox uses a number of open source projects to work properly:
-
-* [react-native-swiper]
+* [Installation](#installation)
+* [Basic Usage](#basic-usage)
+* [Properties](#properties)
+  * [<LightBox />](#lightbox)
+  * [<Image />](#image)
+* [Dependencies](#dependencies)
+* [Roadmap](#roadmap)
 
 ### Installation
 
@@ -14,9 +18,9 @@ React Native Lightbox uses a number of open source projects to work properly:
 $ npm install --save @nomads42/react-native-lightbox
 ```
 
-### Example
+### Basic Usage
 
-``` javascript
+```javascript
 <LightBox>
   <Image ... />
   ...
@@ -24,20 +28,28 @@ $ npm install --save @nomads42/react-native-lightbox
 </LightBox>
 ```
 
-### LightBox Props
+### Properties
 
-| Props           | Default | Type     | Description                                                                                                                                     |
-|-----------------|---------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| paginationStyle | null    | string   | Allows you to choose the pagination style. 3 possible values: `null`, `dots` and `pages`                                                        |
-| renderFooter    | null    | function | Display the return value of this function at the bottom of the lightbox. `renderFooter` gets the index of the current `<Image />` in parameters |
+#### <LightBox />
 
-### Image Props
+Prop | Default | Type | Description
+:- | :-: | :-: | :-
+paginationStyle | null | `string` | Allows you to choose the pagination style. 3 possible values: `null`, `dots` and `pages`.
+renderFooter | null | `function` | Display the return value of this function at the bottom of the lightbox. `renderFooter` gets the index of the current `<Image />` in parameters.
+
+### <Image />
 
 If you want a specific `<Image ... />` to be selected for your `LightBox`, simply add a `selected` attribute to that one like this: `<Image ... selected />`. By default, the first one is selected.
 
-### Todos
+### Dependencies
 
- - Zoomable images
- - Animations
- 
+React Native Lightbox uses a number of open source projects to work properly:
+
+* [react-native-swiper]
+
+### Roadmap
+
+* [ ] Zoomable images
+* [ ] Animations
+
 [react-native-swiper]: <https://github.com/leecade/react-native-swiper>
