@@ -30,14 +30,14 @@ $ npm install --save @nomads42/react-native-lightbox
 
 ### Properties
 
-#### LightBox component
+#### LightBox
 
 Prop | Default | Type | Description
 :-- | :--: | :--: | :--
 paginationStyle | null | `string` | Allows you to choose the pagination style. 3 possible values: `null`, `dots` and `pages`.
 renderFooter | null | `function` | Display the return value of this function at the bottom of the lightbox. `renderFooter` gets the index of the current `<Image />` in parameters.
 
-### Image
+#### Image
 
 If you want a specific `<Image ... />` to be selected for your `LightBox`, simply add a `selected` attribute to that one like this: `<Image ... selected />`. By default, the first one is selected.
 
