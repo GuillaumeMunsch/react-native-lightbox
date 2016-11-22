@@ -94,7 +94,8 @@ modalVisible:false,
 swiperHeight:null,
 swiperWidth:null,
 selectedChildIndex:0,
-selectedChild:null};
+selectedChild:null,
+initialSelectedIndex:0};
 
 _this.onMomentumScrollEnd=_this.onMomentumScrollEnd.bind(_this);return _this;
 }_createClass(LightBox,[{key:'componentWillMount',value:function componentWillMount()
@@ -102,7 +103,7 @@ _this.onMomentumScrollEnd=_this.onMomentumScrollEnd.bind(_this);return _this;
 {var _this2=this;
 _reactNative.BackAndroid.addEventListener('hardwareBackPress',function(){
 if(_this2.state.modalVisible){
-_this2.setModalVisible(false);
+_this2.hideLightBox();
 return true;
 }
 return false;
@@ -116,7 +117,6 @@ this.selectChild();
 {
 return true;
 }},{key:'onMomentumScrollEnd',value:function onMomentumScrollEnd(
-
 
 e,state){
 this.setState({selectedChildIndex:state.index});
@@ -148,20 +148,35 @@ return result;
 }},{key:'setModalVisible',value:function setModalVisible(
 
 visible){
+if(visible){
+this.selectChild();
+}
 this.setState({modalVisible:visible});
 }},{key:'selectChild',value:function selectChild()
 
+
+
 {
-this.setState({selectedChild:this.props.children[0]});
-for(var child in this.props.children){
-if(this.props.children[child].props.selected){
+for(var index in this.props.children){
+if(this.props.children[index].props.selected){
 this.setState({
-selectedChild:this.props.children[child],
-selectedChildIndex:parseInt(child,10)});
+selectedChild:this.props.children[index],
+selectedChildIndex:parseInt(index,10),
+initialSelectedIndex:parseInt(index,10)});
 
 return;
 }
 }
+this.setState({
+selectedChild:this.props.children[0],
+selectedChildIndex:0,
+initialSelectedIndex:0});
+
+}},{key:'hideLightBox',value:function hideLightBox()
+
+{
+this.setModalVisible(false);
+
 }},{key:'renderContent',value:function renderContent()
 
 {
@@ -187,7 +202,7 @@ style:{backgroundColor:'black'}},
 
 _react2.default.createElement(_reactNative.View,{style:styles.lightBoxView},
 _react2.default.createElement(_reactNative.TouchableOpacity,{style:{height:25,alignSelf:'flex-end'}},
-_react2.default.createElement(_reactNative.Text,{onPress:function onPress(){_this3.setModalVisible(false);},style:styles.lightBoxClose},'X')),
+_react2.default.createElement(_reactNative.Text,{onPress:function onPress(){_this3.hideLightBox();},style:styles.lightBoxClose},'X')),
 
 _react2.default.createElement(_reactNative.View,{
 style:{flex:10,alignItems:'center'},
@@ -205,7 +220,8 @@ style:styles.swiper,
 height:this.state.swiperHeight,
 width:this.state.swiperWidth,
 index:this.state.selectedChildIndex,
-onMomentumScrollEnd:this.onMomentumScrollEnd},
+onMomentumScrollEnd:this.onMomentumScrollEnd,
+ref:function ref(_ref){_this3.swiper=_ref;}},
 this.getPaginationStyleProps()),
 
 
