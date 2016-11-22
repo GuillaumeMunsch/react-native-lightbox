@@ -95,6 +95,7 @@ class LightBox extends Component {
       swiperWidth: null,
       selectedChildIndex: 0,
       selectedChild: null,
+      initialSelectedIndex: 0,
     };
     this.onMomentumScrollEnd = this.onMomentumScrollEnd.bind(this);
   }
@@ -102,7 +103,7 @@ class LightBox extends Component {
   componentWillMount() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
       if (this.state.modalVisible) {
-        this.setModalVisible(false);
+        this.hideLightBox();
         return true;
       }
       return false;
@@ -116,7 +117,6 @@ class LightBox extends Component {
   onModalClose() { // eslint-disable-line
     return true;
   }
-
 
   onMomentumScrollEnd(e, state) {
     this.setState({ selectedChildIndex: state.index });
@@ -148,20 +148,35 @@ class LightBox extends Component {
   }
 
   setModalVisible(visible) {
+    if (visible) {
+      this.selectChild();
+    }
     this.setState({ modalVisible: visible });
   }
 
+  swiper:Object;
+
   selectChild() {
-    this.setState({ selectedChild: this.props.children[0] });
-    for (const child in this.props.children) { // eslint-disable-line
-      if (this.props.children[child].props.selected) {
+    for (const index in this.props.children) { // eslint-disable-line
+      if (this.props.children[index].props.selected) {
         this.setState({
-          selectedChild: this.props.children[child],
-          selectedChildIndex: parseInt(child, 10),
+          selectedChild: this.props.children[index],
+          selectedChildIndex: parseInt(index, 10),
+          initialSelectedIndex: parseInt(index, 10),
         });
         return;
       }
     }
+    this.setState({
+      selectedChild: this.props.children[0],
+      selectedChildIndex: 0,
+      initialSelectedIndex: 0,
+    });
+  }
+
+  hideLightBox() {
+    this.setModalVisible(false);
+//    this.swiper.scrollBy(3);
   }
 
   renderContent() {
@@ -187,7 +202,7 @@ class LightBox extends Component {
         >
           <View style={styles.lightBoxView}>
             <TouchableOpacity style={{ height: 25, alignSelf: 'flex-end' }} >
-              <Text onPress={() => { this.setModalVisible(false); }} style={styles.lightBoxClose}>X</Text>
+              <Text onPress={() => { this.hideLightBox(); }} style={styles.lightBoxClose}>X</Text>
             </TouchableOpacity>
             <View
               style={{ flex: 10, alignItems: 'center' }}
@@ -206,6 +221,7 @@ class LightBox extends Component {
                 width={this.state.swiperWidth}
                 index={this.state.selectedChildIndex}
                 onMomentumScrollEnd={this.onMomentumScrollEnd}
+                ref={(ref) => { this.swiper = ref; }}
                 {...this.getPaginationStyleProps()}
               >
                 {
