@@ -71,15 +71,7 @@ class Example extends React.Component {
       <LightBox renderFooter={this.renderFooter} paginationStyle="dots" >
         <Image style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
         <Image style={{ flex: 1, resizeMode: 'contain', height: 100, width: 100 }} source={full} />
-        <Image style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image style={{ flex: 1, resizeMode: 'contain', height: 100, width: 100 }} source={full} />
-        <Image style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image style={{ flex: 1, resizeMode: 'contain', height: 100, width: 100 }} source={full} />
-        <Image style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image style={{ flex: 1, resizeMode: 'contain', height: 100, width: 100 }} source={full} />
-        <Image style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image style={{ flex: 1, resizeMode: 'contain', height: 100, width: 100 }} source={full} />
-        <Image style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
+        <Image selected style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
         <Image style={{ flex: 1, resizeMode: 'contain', height: 100, width: 100 }} source={full} />
       </LightBox>
     </View>);
