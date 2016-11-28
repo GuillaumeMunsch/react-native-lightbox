@@ -183,10 +183,7 @@ class LightBox extends Component {
           <TouchableOpacity
             key={index}
             onPress={() => {
-              console.log('Index: ', index);
-              this.setState({
-                selectedChildIndex: index,
-              });
+              this.setState({ selectedChildIndex: index });
               this.setModalVisible(true);
             }}
           >
@@ -202,7 +199,6 @@ class LightBox extends Component {
 
     );
   }
-
 
   render() {
     return (

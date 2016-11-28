@@ -183,10 +183,7 @@ this.props.children.map(function(child,index){return(
 _react2.default.createElement(_reactNative.TouchableOpacity,{
 key:index,
 onPress:function onPress(){
-console.log('Index: ',index);
-_this3.setState({
-selectedChildIndex:index});
-
+_this3.setState({selectedChildIndex:index});
 _this3.setModalVisible(true);
 }},
 
@@ -202,7 +199,6 @@ this.state.selectedChild));
 
 
 }},{key:'render',value:function render()
-
 
 {var _this4=this;
 return(
