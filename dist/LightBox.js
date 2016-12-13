@@ -8,7 +8,7 @@ var _reactNative=require('react-native');
 
 
 
-var _reactNativeSwiper=require('react-native-swiper');var _reactNativeSwiper2=_interopRequireDefault(_reactNativeSwiper);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
+var _reactNativeSwiper=require('react-native-swiper');var _reactNativeSwiper2=_interopRequireDefault(_reactNativeSwiper);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
 
 var styles=_reactNative.StyleSheet.create({
 lightBoxView:{
@@ -59,7 +59,18 @@ marginRight:4},
 paginationStylePagesView:{
 position:'absolute',
 bottom:10,
-right:10}});
+right:10},
+
+albumRowStyle:{
+flexDirection:'row',
+height:50},
+
+photoStyle:{
+resizeMode:'cover',
+flex:1},
+
+emptyViewStyle:{
+flex:1}});
 
 
 
@@ -77,6 +88,8 @@ index+1),'/',total)));};var
 
 
 LightBox=function(_Component){_inherits(LightBox,_Component);
+
+
 
 
 
@@ -151,6 +164,9 @@ this.setState({modalVisible:visible});
 
 
 {
+if(this.props.album){
+return;
+}
 for(var index in this.props.children){
 if(this.props.children[index].props.selected){
 this.setState({
@@ -170,27 +186,88 @@ selectedChildIndex:0});
 return(
 _react2.default.Children.map(this.props.children,function(child){return _react2.default.createElement(_reactNative.View,{style:{flex:1,margin:8}},
 
-_react2.default.cloneElement(child,_extends({},child.props.style,{flex:1,height:null,width:null,resizeMode:'contain'})));}));
+_react2.default.cloneElement(child,{
+style:_extends({},
+child.props.style,{
+flex:1,
+height:null,
+width:null,
+resizeMode:'contain'}),
+
+source:child.props.full?child.props.full:child.props.source}));}));
+
 
 
 
 }},{key:'renderOverview',value:function renderOverview()
 
 {var _this3=this;
-if(this.props.album){
+if(this.props.album){var _ret=function(){
+if(!Array.isArray(_this3.props.children)){
+return{v:
+_react2.default.createElement(_reactNative.View,null,
+
+_react2.default.cloneElement(_this3.props.children,{
+style:_extends({},
+_this3.props.children.props.style,
+styles.photoStyle)}),
+
+
+
+[].concat(_toConsumableArray(Array(_this3.props.columns-1))).map(function(elem,key){return(
+_react2.default.createElement(_reactNative.View,{key:key,style:styles.emptyViewStyle}));}))};
+
+
+
+}
+var arr=[];
+var i=void 0;
+for(i=0;i+_this3.props.columns<_this3.props.children.length;i+=_this3.props.columns){
+arr.push(
+_react2.default.createElement(_reactNative.View,{
+key:i,
+style:styles.albumRowStyle},
+
+_this3.props.children.slice(i,i+_this3.props.columns).map(function(photo,key){return(
+_react2.default.cloneElement(photo,{
+key:key,
+style:[
+_this3.props.children[i].props.style,
+styles.photoStyle]}));})));
+
+
+
+
+
+}
+var rest=_this3.props.children.length%_this3.props.columns;
+if(rest){
+arr.push(
+_react2.default.createElement(_reactNative.View,{key:i,style:styles.albumRowStyle},
+_this3.props.children.
+slice(_this3.props.children.length-rest,_this3.props.children.length).
+map(function(photo,key){
+i+=1;
 return(
-this.props.children.map(function(child,index){return(
-_react2.default.createElement(_reactNative.TouchableOpacity,{
-key:index,
-onPress:function onPress(){
-_this3.setState({selectedChildIndex:index});
-_this3.setModalVisible(true);
-}},
-
-child));}));
+_react2.default.cloneElement(photo,{
+key:i,
+style:[
+_this3.props.children[rest+key].props.style,
+styles.photoStyle]}));
 
 
 
+}),
+
+[].concat(_toConsumableArray(Array(_this3.props.columns-rest))).map(function(){
+i+=1;
+return _react2.default.createElement(_reactNative.View,{key:i,style:styles.emptyViewStyle});
+})));
+
+
+
+}
+return{v:arr};}();if(typeof _ret==="object")return _ret.v;
 }
 return(
 _react2.default.createElement(_reactNative.TouchableOpacity,{onPress:function onPress(){_this3.setModalVisible(true);}},
@@ -202,7 +279,13 @@ this.state.selectedChild));
 
 {var _this4=this;
 return(
-_react2.default.createElement(_reactNative.View,null,
+_react2.default.createElement(_reactNative.View,{
+style:{
+flex:1,
+flexDirection:'row',
+alignSelf:'stretch'}},
+
+
 _react2.default.createElement(_reactNative.Modal,{
 animationType:'fade',
 transparent:false,
@@ -235,9 +318,7 @@ index:this.state.selectedChildIndex,
 onMomentumScrollEnd:this.onMomentumScrollEnd},
 this.getPaginationStyleProps()),
 
-
 this.renderContent())),
-
 
 
 _react2.default.createElement(_reactNative.View,{style:{alignItems:'center'}},
@@ -247,12 +328,12 @@ this.props.renderFooter&&this.props.renderFooter(this.state.selectedChildIndex))
 
 
 
-_react2.default.createElement(_reactNative.View,null,
+_react2.default.createElement(_reactNative.View,{style:{flex:1}},
 this.renderOverview())));
 
 
 
-}}]);return LightBox;}(_react.Component);LightBox.propTypes={children:_react.PropTypes.node,renderFooter:_react.PropTypes.func,paginationStyle:_react.PropTypes.string,album:_react.PropTypes.bool};LightBox.defaultProps={paginationStyle:'none',album:false};exports.default=
+}}]);return LightBox;}(_react.Component);LightBox.propTypes={children:_react.PropTypes.node,renderFooter:_react.PropTypes.func,paginationStyle:_react.PropTypes.string,album:_react.PropTypes.bool,columns:_react.PropTypes.number};LightBox.defaultProps={paginationStyle:'none',album:false,columns:3};exports.default=
 
 
 

@@ -57,25 +57,21 @@ class Example extends React.Component {
   }
 
   render() {
-    return (<View style={styles.container}>
-      <Text style={styles.welcome}>
-        Welcome to React Native!
-      </Text>
-      <Text style={styles.instructions}>
-        To get started, edit index.ios.js
-      </Text>
-      <Text style={styles.instructions}>
-        Press Cmd+R to reload,{'\n'}
-        Cmd+D or shake for dev menu
-      </Text>
-      <LightBox renderFooter={this.renderFooter} paginationStyle="dots" >
-        <Image style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image style={{ flex: 1, resizeMode: 'contain', height: 100, width: 100 }} source={full} />
-        <Image selected style={{ height: 180, width: 250 }} source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image style={{ flex: 1, resizeMode: 'contain', height: 100, width: 100 }} source={full} />
+    return (<View >
+      <LightBox renderFooter={this.renderFooter} paginationStyle="dots" album columns={3}>
+        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
+        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
+        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
+        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
+        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
+        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
+        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
       </LightBox>
     </View>);
   }
 }
 
 export default Example;
+
+//        <Image source={full} />
+//        <Image source={full} />

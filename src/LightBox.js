@@ -61,6 +61,17 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 10,
   },
+  albumRowStyle: {
+    flexDirection: 'row',
+    height: 50,
+  },
+  photoStyle: {
+    resizeMode: 'cover',
+    flex: 1,
+  },
+  emptyViewStyle: {
+    flex: 1,
+  },
 });
 
 const renderPagination = (index, total) => (
@@ -82,11 +93,13 @@ class LightBox extends Component {
     renderFooter: PropTypes.func,
     paginationStyle: PropTypes.string,
     album: PropTypes.bool,
+    columns: PropTypes.number,
   }
 
   static defaultProps = {
     paginationStyle: 'none',
     album: false,
+    columns: 3,
   }
 
   constructor(props) {
@@ -151,6 +164,9 @@ class LightBox extends Component {
   swiper:Object;
 
   selectChild() {
+    if (this.props.album) {
+      return;
+    }
     for (const index in this.props.children) { // eslint-disable-line
       if (this.props.children[index].props.selected) {
         this.setState({
@@ -170,7 +186,16 @@ class LightBox extends Component {
     return (
         React.Children.map(this.props.children, child => <View style={{ flex: 1, margin: 8 }}>
           {
-            React.cloneElement(child, Object.assign({}, child.props.style, { flex: 1, height: null, width: null, resizeMode: 'contain' })) // eslint-disable-line
+            React.cloneElement(child, {
+              style: {
+                ...child.props.style,
+                flex: 1,
+                height: null,
+                width: null,
+                resizeMode: 'contain',
+              },
+              source: child.props.full ? child.props.full : child.props.source,
+            })
           }
         </View>
     ));
@@ -178,19 +203,71 @@ class LightBox extends Component {
 
   renderOverview() {
     if (this.props.album) {
-      return (
-        this.props.children.map((child, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => {
-              this.setState({ selectedChildIndex: index });
-              this.setModalVisible(true);
-            }}
+      if (!Array.isArray(this.props.children)) {
+        return (
+          <View>
+            {
+              React.cloneElement(this.props.children, {
+                style: {
+                  ...this.props.children.props.style,
+                  ...styles.photoStyle,
+                },
+              })
+            }
+            {[...Array(this.props.columns - 1)].map((elem, key) => (
+              <View key={key} style={styles.emptyViewStyle} />
+            ))}
+          </View>
+        );
+      }
+      const arr = [];
+      let i;
+      for (i = 0; i + this.props.columns < this.props.children.length; i += this.props.columns) {
+        arr.push(
+          <View
+            key={i}
+            style={styles.albumRowStyle}
           >
-            {child}
-          </TouchableOpacity>)
-        )
-      );
+            {this.props.children.slice(i, i + this.props.columns).map((photo, key) => ( // eslint-disable-line
+              React.cloneElement(photo, {
+                key,
+                style: [
+                  this.props.children[i].props.style,
+                  styles.photoStyle,
+                ],
+              })
+            ))}
+          </View>
+        );
+      }
+      const rest = this.props.children.length % this.props.columns;
+      if (rest) {
+        arr.push(
+          <View key={i} style={styles.albumRowStyle}>
+            {this.props.children
+              .slice(this.props.children.length - rest, this.props.children.length)
+              .map((photo, key) => {
+                i += 1;
+                return (
+                React.cloneElement(photo, {
+                  key: i,
+                  style: [
+                    this.props.children[rest + key].props.style,
+                    styles.photoStyle,
+                  ],
+                })
+              );
+              }
+            )}
+            {[...Array(this.props.columns - rest)].map(() => {
+              i += 1;
+              return <View key={i} style={styles.emptyViewStyle} />;
+            })
+            }
+          </View>
+        );
+      }
+      return arr;
     }
     return (
       <TouchableOpacity onPress={() => { this.setModalVisible(true); }} >
@@ -202,7 +279,13 @@ class LightBox extends Component {
 
   render() {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          alignSelf: 'stretch',
+        }}
+      >
         <Modal
           animationType={'fade'}
           transparent={false}
@@ -235,9 +318,7 @@ class LightBox extends Component {
                 onMomentumScrollEnd={this.onMomentumScrollEnd}
                 {...this.getPaginationStyleProps()}
               >
-                {
-                  this.renderContent()
-                }
+                {this.renderContent()}
               </Swiper>
             </View>
             <View style={{ alignItems: 'center' }}>
@@ -247,7 +328,7 @@ class LightBox extends Component {
             </View>
           </View>
         </Modal>
-        <View>
+        <View style={{ flex: 1 }}>
           {this.renderOverview()}
         </View>
       </View>
