@@ -65,9 +65,14 @@ albumRowStyle:{
 flexDirection:'row',
 height:50},
 
-photoStyle:{
-resizeMode:'cover',
+touchableStyle:{
 flex:1},
+
+photoStyle:{
+flex:1,
+resizeMode:'cover',
+height:null,
+width:null},
 
 emptyViewStyle:{
 flex:1}});
@@ -222,21 +227,26 @@ _react2.default.createElement(_reactNative.View,{key:key,style:styles.emptyViewS
 }
 var arr=[];
 var i=void 0;
-for(i=0;i+_this3.props.columns<_this3.props.children.length;i+=_this3.props.columns){
+var photoNumber=-1;
+for(i=0;i+_this3.props.columns<=_this3.props.children.length;i+=_this3.props.columns){
 arr.push(
-_react2.default.createElement(_reactNative.View,{
-key:i,
-style:styles.albumRowStyle},
-
-_this3.props.children.slice(i,i+_this3.props.columns).map(function(photo,key){return(
-_react2.default.cloneElement(photo,{
+_react2.default.createElement(_reactNative.View,{key:i,style:styles.albumRowStyle},
+_this3.props.children.slice(i,i+_this3.props.columns).map(function(photo,key){
+photoNumber+=1;
+var tmpNumber=photoNumber;
+return(
+_react2.default.createElement(_reactNative.TouchableOpacity,{
 key:key,
-style:[
-_this3.props.children[i].props.style,
-styles.photoStyle]}));})));
+onPress:function onPress(){return _this3.setState(
+{selectedChildIndex:tmpNumber},
+function(){return _this3.setModalVisible(true);});},
+
+style:styles.touchableStyle},
+
+_react2.default.cloneElement(photo,{key:key,style:styles.photoStyle})));
 
 
-
+})));
 
 
 }
@@ -246,16 +256,20 @@ arr.push(
 _react2.default.createElement(_reactNative.View,{key:i,style:styles.albumRowStyle},
 _this3.props.children.
 slice(_this3.props.children.length-rest,_this3.props.children.length).
-map(function(photo,key){
+map(function(photo){
 i+=1;
+photoNumber+=1;
+var tmpNumber=photoNumber;
 return(
-_react2.default.cloneElement(photo,{
+_react2.default.createElement(_reactNative.TouchableOpacity,{
 key:i,
-style:[
-_this3.props.children[rest+key].props.style,
-styles.photoStyle]}));
+onPress:function onPress(){return _this3.setState(
+{selectedChildIndex:tmpNumber},
+function(){return _this3.setModalVisible(true);});},
 
+style:styles.touchableStyle},
 
+_react2.default.cloneElement(photo,{key:i,style:styles.photoStyle})));
 
 }),
 

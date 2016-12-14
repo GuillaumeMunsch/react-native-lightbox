@@ -65,9 +65,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
   },
-  photoStyle: {
-    resizeMode: 'cover',
+  touchableStyle: {
     flex: 1,
+  },
+  photoStyle: {
+    flex: 1,
+    resizeMode: 'cover',
+    height: null,
+    width: null,
   },
   emptyViewStyle: {
     flex: 1,
@@ -222,21 +227,26 @@ class LightBox extends Component {
       }
       const arr = [];
       let i;
-      for (i = 0; i + this.props.columns < this.props.children.length; i += this.props.columns) {
+      let photoNumber = -1;
+      for (i = 0; i + this.props.columns <= this.props.children.length; i += this.props.columns) {
         arr.push(
-          <View
-            key={i}
-            style={styles.albumRowStyle}
-          >
-            {this.props.children.slice(i, i + this.props.columns).map((photo, key) => ( // eslint-disable-line
-              React.cloneElement(photo, {
-                key,
-                style: [
-                  this.props.children[i].props.style,
-                  styles.photoStyle,
-                ],
-              })
-            ))}
+          <View key={i} style={styles.albumRowStyle} >
+            {this.props.children.slice(i, i + this.props.columns).map((photo, key) => { // eslint-disable-line
+              photoNumber += 1;
+              const tmpNumber = photoNumber;
+              return (
+                <TouchableOpacity
+                  key={key}
+                  onPress={() => this.setState(
+                    { selectedChildIndex: tmpNumber },
+                     () => this.setModalVisible(true)
+                   )}
+                  style={styles.touchableStyle}
+                >
+                  {React.cloneElement(photo, { key, style: styles.photoStyle })}
+                </TouchableOpacity>
+              );
+            })}
           </View>
         );
       }
@@ -246,18 +256,22 @@ class LightBox extends Component {
           <View key={i} style={styles.albumRowStyle}>
             {this.props.children
               .slice(this.props.children.length - rest, this.props.children.length)
-              .map((photo, key) => {
+              .map((photo) => {
                 i += 1;
+                photoNumber += 1;
+                const tmpNumber = photoNumber;
                 return (
-                React.cloneElement(photo, {
-                  key: i,
-                  style: [
-                    this.props.children[rest + key].props.style,
-                    styles.photoStyle,
-                  ],
-                })
-              );
-              }
+                  <TouchableOpacity
+                    key={i}
+                    onPress={() => this.setState(
+                      { selectedChildIndex: tmpNumber },
+                       () => this.setModalVisible(true)
+                     )}
+                    style={styles.touchableStyle}
+                  >
+                    {React.cloneElement(photo, { key: i, style: styles.photoStyle })}
+                  </TouchableOpacity>
+              ); }
             )}
             {[...Array(this.props.columns - rest)].map(() => {
               i += 1;

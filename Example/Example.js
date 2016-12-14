@@ -57,14 +57,21 @@ class Example extends React.Component {
   }
 
   render() {
-    return (<View >
+    return (<View
+      style={[
+        styles.container,
+        {
+          flex: 1,
+          padding: 50,
+          backgroundColor: 'green',
+        }]
+    }
+    >
       <LightBox renderFooter={this.renderFooter} paginationStyle="dots" album columns={3}>
         <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
-        <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
+        <Image style={{ width: 200, height: 200 }} source={{ uri: 'https://static.simpsonswiki.com/images/thumb/c/c3/D\'oh.jpg/150px-D\'oh.jpg' }} />
+        <Image source={full} />
+        <Image source={full} />
         <Image source={{ uri: 'http://images2.fanpop.com/images/photos/3000000/Homer-Simpson-homer-simpson-3065329-800-600.jpg' }} />
       </LightBox>
     </View>);
@@ -72,6 +79,3 @@ class Example extends React.Component {
 }
 
 export default Example;
-
-//        <Image source={full} />
-//        <Image source={full} />
