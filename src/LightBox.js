@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   albumRowStyle: {
     flexDirection: 'row',
-    height: 50,
+    height: 80,
   },
   touchableStyle: {
     flex: 1,
@@ -99,12 +99,14 @@ class LightBox extends Component {
     paginationStyle: PropTypes.string,
     album: PropTypes.bool,
     columns: PropTypes.number,
+    rowHeight: PropTypes.number,
   }
 
   static defaultProps = {
     paginationStyle: 'none',
     album: false,
     columns: 3,
+    rowHeight: 80,
   }
 
   constructor(props) {
@@ -210,7 +212,7 @@ class LightBox extends Component {
     if (this.props.album) {
       if (!Array.isArray(this.props.children)) {
         return (
-          <View>
+          <View style={[styles.albumRowStyle, { height: this.props.rowHeight }]} >
             {
               React.cloneElement(this.props.children, {
                 style: {
@@ -230,7 +232,7 @@ class LightBox extends Component {
       let photoNumber = -1;
       for (i = 0; i + this.props.columns <= this.props.children.length; i += this.props.columns) {
         arr.push(
-          <View key={i} style={styles.albumRowStyle} >
+          <View key={i} style={[styles.albumRowStyle, { height: this.props.rowHeight }]} >
             {this.props.children.slice(i, i + this.props.columns).map((photo, key) => { // eslint-disable-line
               photoNumber += 1;
               const tmpNumber = photoNumber;
@@ -253,7 +255,7 @@ class LightBox extends Component {
       const rest = this.props.children.length % this.props.columns;
       if (rest) {
         arr.push(
-          <View key={i} style={styles.albumRowStyle}>
+          <View key={i} style={[styles.albumRowStyle, { height: this.props.rowHeight }]}>
             {this.props.children
               .slice(this.props.children.length - rest, this.props.children.length)
               .map((photo) => {

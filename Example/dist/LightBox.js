@@ -63,7 +63,7 @@ right:10},
 
 albumRowStyle:{
 flexDirection:'row',
-height:50},
+height:80},
 
 touchableStyle:{
 flex:1},
@@ -93,6 +93,8 @@ index+1),'/',total)));};var
 
 
 LightBox=function(_Component){_inherits(LightBox,_Component);
+
+
 
 
 
@@ -210,7 +212,7 @@ source:child.props.full?child.props.full:child.props.source}));}));
 if(this.props.album){var _ret=function(){
 if(!Array.isArray(_this3.props.children)){
 return{v:
-_react2.default.createElement(_reactNative.View,null,
+_react2.default.createElement(_reactNative.View,{style:[styles.albumRowStyle,{height:_this3.props.rowHeight}]},
 
 _react2.default.cloneElement(_this3.props.children,{
 style:_extends({},
@@ -230,7 +232,7 @@ var i=void 0;
 var photoNumber=-1;
 for(i=0;i+_this3.props.columns<=_this3.props.children.length;i+=_this3.props.columns){
 arr.push(
-_react2.default.createElement(_reactNative.View,{key:i,style:styles.albumRowStyle},
+_react2.default.createElement(_reactNative.View,{key:i,style:[styles.albumRowStyle,{height:_this3.props.rowHeight}]},
 _this3.props.children.slice(i,i+_this3.props.columns).map(function(photo,key){
 photoNumber+=1;
 var tmpNumber=photoNumber;
@@ -253,7 +255,7 @@ _react2.default.cloneElement(photo,{key:key,style:styles.photoStyle})));
 var rest=_this3.props.children.length%_this3.props.columns;
 if(rest){
 arr.push(
-_react2.default.createElement(_reactNative.View,{key:i,style:styles.albumRowStyle},
+_react2.default.createElement(_reactNative.View,{key:i,style:[styles.albumRowStyle,{height:_this3.props.rowHeight}]},
 _this3.props.children.
 slice(_this3.props.children.length-rest,_this3.props.children.length).
 map(function(photo){
@@ -347,7 +349,7 @@ this.renderOverview())));
 
 
 
-}}]);return LightBox;}(_react.Component);LightBox.propTypes={children:_react.PropTypes.node,renderFooter:_react.PropTypes.func,paginationStyle:_react.PropTypes.string,album:_react.PropTypes.bool,columns:_react.PropTypes.number};LightBox.defaultProps={paginationStyle:'none',album:false,columns:3};exports.default=
+}}]);return LightBox;}(_react.Component);LightBox.propTypes={children:_react.PropTypes.node,renderFooter:_react.PropTypes.func,paginationStyle:_react.PropTypes.string,album:_react.PropTypes.bool,columns:_react.PropTypes.number,rowHeight:_react.PropTypes.number};LightBox.defaultProps={paginationStyle:'none',album:false,columns:3,rowHeight:80};exports.default=
 
 
 
