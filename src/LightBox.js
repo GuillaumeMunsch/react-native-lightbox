@@ -100,6 +100,7 @@ class LightBox extends Component {
     album: PropTypes.bool,
     columns: PropTypes.number,
     rowHeight: PropTypes.number,
+    style: PropTypes.any, //eslint-disable-line
   }
 
   static defaultProps = {
@@ -107,6 +108,7 @@ class LightBox extends Component {
     album: false,
     columns: 3,
     rowHeight: 80,
+    style: {},
   }
 
   constructor(props) {
@@ -250,7 +252,7 @@ class LightBox extends Component {
                   key={key}
                   onPress={() => this.setState(
                     { selectedChildIndex: tmpNumber },
-                     () => this.setModalVisible(true)
+                     () => this.setModalVisible(true),
                    )}
                   style={styles.touchableStyle}
                 >
@@ -276,13 +278,14 @@ class LightBox extends Component {
                     key={i}
                     onPress={() => this.setState(
                       { selectedChildIndex: tmpNumber },
-                       () => this.setModalVisible(true)
+                       () => this.setModalVisible(true),
                      )}
                     style={styles.touchableStyle}
                   >
                     {React.cloneElement(photo, { key: i, style: styles.photoStyle })}
                   </TouchableOpacity>
-              ); }
+                );
+              },
             )}
             {[...Array(this.props.columns - rest)].map(() => {
               i += 1;
@@ -294,7 +297,6 @@ class LightBox extends Component {
       }
       return arr;
     }
-    console.log('Selected', this.state.selectedChild);
     return (
       <TouchableOpacity onPress={() => { this.setModalVisible(true); }} >
         {this.state.selectedChild}
@@ -305,13 +307,7 @@ class LightBox extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          alignSelf: 'stretch',
-        }}
-      >
+      <View style={this.props.style}>
         <Modal
           animationType={'fade'}
           transparent={false}
@@ -322,7 +318,7 @@ class LightBox extends Component {
           <View style={styles.lightBoxView}>
             <TouchableOpacity style={{ height: 25, alignSelf: 'flex-end' }} >
               <Text onPress={() => { this.setModalVisible(false); }} style={styles.lightBoxClose}>
-                X
+            X
               </Text>
             </TouchableOpacity>
             <View

@@ -109,6 +109,8 @@ LightBox=function(_Component){_inherits(LightBox,_Component);
 
 
 
+
+
 function LightBox(props){_classCallCheck(this,LightBox);var _this=_possibleConstructorReturn(this,(LightBox.__proto__||Object.getPrototypeOf(LightBox)).call(this,
 props));
 _this.state={
@@ -282,6 +284,7 @@ style:styles.touchableStyle},
 
 _react2.default.cloneElement(photo,{key:i,style:styles.photoStyle})));
 
+
 }),
 
 [].concat(_toConsumableArray(Array(_this3.props.columns-rest))).map(function(){
@@ -294,7 +297,6 @@ return _react2.default.createElement(_reactNative.View,{key:i,style:styles.empty
 }
 return{v:arr};}();if(typeof _ret==="object")return _ret.v;
 }
-console.log('Selected',this.state.selectedChild);
 return(
 _react2.default.createElement(_reactNative.TouchableOpacity,{onPress:function onPress(){_this3.setModalVisible(true);}},
 this.state.selectedChild));
@@ -305,13 +307,7 @@ this.state.selectedChild));
 
 {var _this4=this;
 return(
-_react2.default.createElement(_reactNative.View,{
-style:{
-flex:1,
-flexDirection:'row',
-alignSelf:'stretch'}},
-
-
+_react2.default.createElement(_reactNative.View,{style:this.props.style},
 _react2.default.createElement(_reactNative.Modal,{
 animationType:'fade',
 transparent:false,
@@ -359,7 +355,7 @@ this.renderOverview())));
 
 
 
-}}]);return LightBox;}(_react.Component);LightBox.propTypes={children:_react.PropTypes.node,renderFooter:_react.PropTypes.func,paginationStyle:_react.PropTypes.string,album:_react.PropTypes.bool,columns:_react.PropTypes.number,rowHeight:_react.PropTypes.number};LightBox.defaultProps={paginationStyle:'none',album:false,columns:3,rowHeight:80};exports.default=
+}}]);return LightBox;}(_react.Component);LightBox.propTypes={children:_react.PropTypes.node,renderFooter:_react.PropTypes.func,paginationStyle:_react.PropTypes.string,album:_react.PropTypes.bool,columns:_react.PropTypes.number,rowHeight:_react.PropTypes.number,style:_react.PropTypes.any};LightBox.defaultProps={paginationStyle:'none',album:false,columns:3,rowHeight:80,style:{}};exports.default=
 
 
 
