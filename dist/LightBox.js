@@ -174,6 +174,17 @@ this.setState({modalVisible:visible});
 if(this.props.album){
 return;
 }
+if(!Array.isArray(this.props.children)){
+this.setState({
+selectedChild:this.props.children,
+selectedChildIndex:0});
+
+return;
+}
+this.setState({
+selectedChild:this.props.children[0],
+selectedChildIndex:0});
+
 for(var index in this.props.children){
 if(this.props.children[index].props.selected){
 this.setState({
@@ -183,10 +194,6 @@ selectedChildIndex:parseInt(index,10)});
 return;
 }
 }
-this.setState({
-selectedChild:this.props.children[0],
-selectedChildIndex:0});
-
 }},{key:'renderContent',value:function renderContent()
 
 {
@@ -213,11 +220,13 @@ if(this.props.album){var _ret=function(){
 if(!Array.isArray(_this3.props.children)){
 return{v:
 _react2.default.createElement(_reactNative.View,{style:[styles.albumRowStyle,{height:_this3.props.rowHeight}]},
+_react2.default.createElement(_reactNative.TouchableOpacity,{
+onPress:function onPress(){return _this3.setModalVisible(true);},
+style:styles.touchableStyle},
+
 
 _react2.default.cloneElement(_this3.props.children,{
-style:_extends({},
-_this3.props.children.props.style,
-styles.photoStyle)}),
+style:styles.photoStyle})),
 
 
 
@@ -285,6 +294,7 @@ return _react2.default.createElement(_reactNative.View,{key:i,style:styles.empty
 }
 return{v:arr};}();if(typeof _ret==="object")return _ret.v;
 }
+console.log('Selected',this.state.selectedChild);
 return(
 _react2.default.createElement(_reactNative.TouchableOpacity,{onPress:function onPress(){_this3.setModalVisible(true);}},
 this.state.selectedChild));

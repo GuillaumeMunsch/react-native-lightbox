@@ -174,6 +174,17 @@ class LightBox extends Component {
     if (this.props.album) {
       return;
     }
+    if (!Array.isArray(this.props.children)) {
+      this.setState({
+        selectedChild: this.props.children,
+        selectedChildIndex: 0,
+      });
+      return;
+    }
+    this.setState({
+      selectedChild: this.props.children[0],
+      selectedChildIndex: 0,
+    });
     for (const index in this.props.children) { // eslint-disable-line
       if (this.props.children[index].props.selected) {
         this.setState({
@@ -183,10 +194,6 @@ class LightBox extends Component {
         return;
       }
     }
-    this.setState({
-      selectedChild: this.props.children[0],
-      selectedChildIndex: 0,
-    });
   }
 
   renderContent() {
@@ -213,14 +220,16 @@ class LightBox extends Component {
       if (!Array.isArray(this.props.children)) {
         return (
           <View style={[styles.albumRowStyle, { height: this.props.rowHeight }]} >
-            {
+            <TouchableOpacity
+              onPress={() => this.setModalVisible(true)}
+              style={styles.touchableStyle}
+            >
+              {
               React.cloneElement(this.props.children, {
-                style: {
-                  ...this.props.children.props.style,
-                  ...styles.photoStyle,
-                },
+                style: styles.photoStyle,
               })
             }
+            </TouchableOpacity>
             {[...Array(this.props.columns - 1)].map((elem, key) => (
               <View key={key} style={styles.emptyViewStyle} />
             ))}
@@ -285,6 +294,7 @@ class LightBox extends Component {
       }
       return arr;
     }
+    console.log('Selected', this.state.selectedChild);
     return (
       <TouchableOpacity onPress={() => { this.setModalVisible(true); }} >
         {this.state.selectedChild}
